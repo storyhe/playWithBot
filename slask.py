@@ -11,11 +11,14 @@ from slackclient import SlackClient
 import sys
 import time
 import traceback
+import random
 
 curdir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(curdir)
 
 from config import config
+
+lastchannel = ""
 
 hooks = {}
 def init_plugins():
@@ -70,17 +73,27 @@ def handle_message(client, event):
     text = "\n".join(run_hook("message", event, {"client": client, "config": config, "hooks": hooks}))
 
     if text:
+        print(event["channel"])
+        global lastchannel
+	lastchannel  = event["channel"]
         client.rtm_send_message(event["channel"], text)
 
 event_handlers = {
     "message": handle_message
 }
 
+def msg():
+	return random.choice(["후시기다네", "뿌와뿌와", "!도움", "뭘봐","-____-", "ggg..", "으아아아아아"])
+
 if __name__=="__main__":
     sc = SlackClient(config["token"])
     if sc.rtm_connect():
         users = sc.server.users
         while True:
+            if lastchannel:
+                if random.randint(1, 5000) == 5:
+                     sc.rtm_send_message(lastchannel, unicode(msg(), "utf8"))
+
             events = sc.rtm_read()
             for event in events:
                 #print "got {0}".format(event.get("type", event))
