@@ -10,7 +10,7 @@ def on_message(msg, server):
     if text == u"!무기추가":
      return unicode("사용방법: !무기추가 <무기명> \n안내: 무기명에는 추가할 무기를 입력해주십시요.", "utf8")
 
-    match = re.findall(u"!(?:무기추가) (.*)", text)
+    match = re.findall(u"^!(?:무기추가) (.*)", text)
     if not match: return
     
     searchterm = match[0].encode("utf8")

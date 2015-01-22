@@ -22,13 +22,33 @@ def s(text, suffix):
     result = u"[" + text + u"]" + result
     return result
 
-def success_msg(name):
+def randomGoodAbillity():
     return random.choice([
-        s(name, u"는") + u" 휘황찬란하게 빛납니다....!!",
-        s(name, u"가") + u" 크고 아름다워졌습니다.... 우홋.... 멋진 " + s(name,u"다") + u"...",
-        s(name, u"는") + u" 강인해졌습니다.....!",
-        s(name, u"는") + u" 단단해졌습니다.....!",
-        s(name, u"는") + u" 날카로워졌습니다.....!",
+        u"공격력",
+        u"방어력",
+        u"체력",
+        u"마력",
+        u"스테미나",
+        u"마법 저항력",
+        u"물리 공격 저항력",
+        u"자연 치유력",
+        u"독 치유력",
+        u"매력",
+        u"민감도",
+        u"아름다움",
+        u"모든 능력",
+        u"야근력",
+        u"(검열삭제)",
+        ])
+
+def success_msg(name):
+        # s(name, u"는") + u" 휘황찬란하게 빛납니다....!!",
+        # s(name, u"가") + u" 크고 아름다워졌습니다.... 우홋.... 멋진 " + s(name,u"다") + u"...",
+        # s(name, u"는") + u" 강인해졌습니다.....!",
+        # s(name, u"는") + u" 단단해졌습니다.....!",
+        # s(name, u"는") + u" 날카로워졌습니다.....!",
+    return random.choice([
+        s(randomGoodAbillity(), u"가") + u" +%d만큼 증가했습니다.....!" % random.randint(10,50),
         ])
     
 def fail_msg(name):
@@ -42,7 +62,7 @@ def fail_msg(name):
 
 def on_message(msg, server):
     text = msg.get("text", "")
-    match = re.findall(u"!강화 (.*)", text)
+    match = re.findall(u"^!강화 (.*)", text)
     if not match: return 
     
     weaponName = match[0]

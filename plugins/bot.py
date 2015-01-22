@@ -7,7 +7,7 @@ import botlib, json
 
 def on_message(msg, server):
 	text = msg.get("text", "")
-	if (text == "!whoami"):
+	if (text == "^!whoami"):
 		unix_userId = msg["user"]
 		object = json.loads(server['client'].server.api_call("users.info", user = str(unix_userId)))
 		if str(object["ok"] == "true"):
@@ -18,7 +18,7 @@ def on_message(msg, server):
 		else:
 			return u"서버와 연동에 실패하였습니다."
 
-	elif (text == u"!가입"):
+	elif (text == u"^!가입"):
 		unix_userId = msg["user"]
 		object = json.loads(server['client'].server.api_call("users.info", user = str(unix_userId)))
 		
@@ -39,7 +39,7 @@ def on_message(msg, server):
 		else:
 			return u"서버와 연동에 실패하였습니다."
 
-	elif (text == u"!내정보"):
+	elif (text == u"^!내정보"):
 		unique_userid = msg["user"]
 		if (botlib.exists_userid(unique_userid) == False):
 			return unicode("미가입대상자입니다. 가입부터 진행해주세요", "utf8")
@@ -47,6 +47,6 @@ def on_message(msg, server):
 			data = botlib.getuserInfo(unique_userid)
 			return unicode("> %s [Lv:%d / 포인트: %d]", "utf8") % (data["nickname"], data["level"], data["point"])
 			
-	elif (text == u"!빵꾸똥꾸"):
+	elif (text == u"^!빵꾸똥꾸"):
 		unix_userId = msg["user"]
 		return json.dumps(server['client'].server.api_call("channels.kick", channel = str(msg["channel"]), user = str(unix_userId)))

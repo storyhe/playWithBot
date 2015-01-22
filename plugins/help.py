@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
 
-"""!help ;지금 보고있는것."""
+"""!도움 : 지금 보고있는 도움말을 표시해줍니다."""
 
 import re
 
 def on_message(msg, server):
     text = msg.get("text", "")
-    match = re.findall(r"!help( .*)?", text)
+    match = re.findall(ur"^!도움( .*)?", text)
     if not match: return
 
     helptopic = match[0].strip().encode("utf8")
