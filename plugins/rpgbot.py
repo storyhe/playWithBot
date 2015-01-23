@@ -14,6 +14,7 @@ CmdType = enum(
     MyInfo = 2,
     WeaponInfo = 3,
     AddWeapon = 4,
+    UpgradeWeapon = 5,
     )
 
 # 입력으로부터 명령어 타입을 얻어내는 함수
@@ -22,6 +23,7 @@ def input_to_CmdType(text):
     if u"^!내정보" == text: return CmdType.MyInfo
     if re.findall(u"^!무기정보 ", text): return CmdType.WeaponInfo
     if re.findall(u"^!무기추가 ", text): return CmdType.AddWeapon
+    if re.findall(u"^!무기강화 ", text): return CmdType.UpgradeWeapon
     return None
 
 # 입력으로부터 인자를 가져오는 함수
@@ -34,6 +36,9 @@ def get_argument(cmdType, text):
         if not match: raise ValueError
     if cmdType == CmdType.AddWeapon : 
         match = re.findall(ur"^!무기추가 (.*)", text)
+        if not match: raise ValueError
+    if cmdType == CmdType.UpgradeWeapon : 
+        match = re.findall(ur"^!무기강화 (.*)", text)
         if not match: raise ValueError
     return match[0]
 
@@ -57,6 +62,10 @@ def run_command(cmdType, text, msgobj, serverobj):
     if cmdType == CmdType.AddWeapon :
         weaponname = get_argument(cmdType, text)
         result = Rpg.add_weapon(userobj, weaponname)
+    if cmdType == CmdType.UpgradeWeapon :
+        weaponname = get_argument(cmdType, text)
+        result = Rpg.upgrade_weapon(userobj, weaponname)
+        result += Rpg.get_weapon_info(userobj, weaponname)
     
     BotLib.say(channel, result)
     
