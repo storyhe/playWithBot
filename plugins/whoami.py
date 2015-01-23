@@ -11,13 +11,13 @@ from random import shuffle
 
 def on_message(msg, server):
 	text = msg.get("text", "")
-	if (text == u"^!나는누구"):
+	if (text == u"!나는누구"):
 		unix_userId = msg["user"]
 		object = json.loads(server['client'].server.api_call("users.info", user = str(unix_userId)))
 		if str(object["ok"] == "true"):
 			profile = object["user"]["profile"]
 			userNickname = profile["real_name"]
-			text = unicode("안녕하세요! [%s] 님! 일해라...","utf-8") % userNickname
+			text = u"안녕하세요! [%s] 님! 일해라..." % userNickname
 			return text
 		else:
 			return u"서버와 연동에 실패하였습니다."

@@ -12,6 +12,7 @@ import sys
 import time
 import traceback
 import random
+from plugins.botlib import BotLib
 
 curdir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(curdir)
@@ -21,6 +22,8 @@ from config import config
 lastchannel = ""
 
 hooks = {}
+
+
 def init_plugins():
     for plugin in glob('plugins/[!_]*.py'):
         print("plugin: {0}".format(plugin))
@@ -33,7 +36,7 @@ def init_plugins():
                 hooks.setdefault(hook, []).append(hookfun)
 
             if mod.__doc__:
-                firstline = mod.__doc__.split('\n')[0]
+                firstline = mod.__doc__.strip()
                 hooks.setdefault('help', {})[modname] = firstline
                 hooks.setdefault('extendedhelp', {})[modname] = mod.__doc__
 
@@ -82,17 +85,18 @@ event_handlers = {
     "message": handle_message
 }
 
-def msg():
-	return random.choice(["후시기다네", "뿌와뿌와", "!도움", "뭘봐","-____-", "ggg..", "으아아아아아"])
+# def msg():
+# 	return random.choice(["yee", "우수개발자....", "ㅋㅋ", "오타쿠다...", "집에가고싶어...", "배고파..."])
 
 if __name__=="__main__":
     sc = SlackClient(config["token"])
+    bot = BotLib.set_slack_client(sc)
     if sc.rtm_connect():
         users = sc.server.users
         while True:
-            if lastchannel:
-                if random.randint(1, 5000) == 5:
-                     sc.rtm_send_message(lastchannel, unicode(msg(), "utf8"))
+            # if lastchannel:
+            #     if random.randint(1, 5000) == 5:
+            #          sc.rtm_send_message(lastchannel, unicode(msg(), "utf8"))
 
             events = sc.rtm_read()
             for event in events:
