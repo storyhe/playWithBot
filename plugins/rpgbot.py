@@ -4,7 +4,7 @@
 """!가입; 봇 게임센터에 가입합니다.\n!내정보; 내 등록된 정보를 봅니다."""
 
 import re
-import botlib, json
+import json
 from botlib import BotLib
 from rpg import RPG
 from util.util import enum
