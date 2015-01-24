@@ -8,7 +8,7 @@ from urllib import quote
 import requests
 
 def calc(eq):
-    query = quote(eq)
+    query = quote(eq.encode("utf8"))
     url = "https://encrypted.google.com/search?hl=en&q={0}".format(query)
     soup = BeautifulSoup(requests.get(url).text)
 
