@@ -42,6 +42,8 @@ class RPG:
 
 
     def get_weapon_info(self, userobj, weaponname) :
+        if not self.__check_weapon(weaponname) :
+            return u"해당 무기는 없습니다."
         (name, level, power) = self.__get_weapon_info(weaponname)
         return u"무기명: %s[lv.%d] / 파워 : %d" % (name, level, power)
 
@@ -73,6 +75,7 @@ class RPG:
                 text += u"무기강화에 실패하였습니다. \n"
                 text += self.__downgrade_weapon(weaponname, False)
             
+        text += self.get_weapon_info(userobj, weaponname)
         return text
         
 
@@ -107,6 +110,8 @@ class RPG:
             return False
     
     def __get_weapon_info(self, weaponName):
+        if not self.__check_weapon(weaponName):
+            return
         collection = self.db['weapon']
         data = collection.find_one({"name": weaponName})
         return (data["name"], data["level"], data["power"])

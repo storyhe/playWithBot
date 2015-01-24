@@ -65,8 +65,7 @@ def run_command(cmdType, text, msgobj, serverobj):
     if cmdType == CmdType.UpgradeWeapon :
         weaponname = get_argument(cmdType, text)
         result = Rpg.upgrade_weapon(userobj, weaponname)
-        result += Rpg.get_weapon_info(userobj, weaponname)
-    
+        
     BotLib.say(channel, result)
     
 
@@ -88,3 +87,5 @@ def on_message(msg, server):
             return u"사용방법: !무기정보 <무기명> \n안내: 무기명에는 찾을 무기를 입력해주십시요."
         if cmdType == CmdType.AddWeapon :
             return u"사용방법: !무기추가 <무기명> \n안내: 무기명에는 추가할 무기를 입력해주십시요."
+        if cmdType == CmdType.UpgradeWeapon :
+            return u"사용방법: !무기강화 <무기명> \n안내: 무기명에는 강화할 무기를 입력해주십시요."
