@@ -5,7 +5,7 @@
 
 import re
 from botlib import BotLib
-from botlib._util import enum
+from util.util import enum
 
 Type = enum(
     Nico = 1,

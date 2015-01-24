@@ -19,8 +19,8 @@ CmdType = enum(
 
 # 입력으로부터 명령어 타입을 얻어내는 함수
 def input_to_CmdType(text):
-    if u"^!가입" == text: return CmdType.Register
-    if u"^!내정보" == text: return CmdType.MyInfo
+    if u"!가입" == text: return CmdType.Register
+    if u"!내정보" == text: return CmdType.MyInfo
     if re.findall(u"^!무기정보 ", text): return CmdType.WeaponInfo
     if re.findall(u"^!무기추가 ", text): return CmdType.AddWeapon
     if re.findall(u"^!무기강화 ", text): return CmdType.UpgradeWeapon
