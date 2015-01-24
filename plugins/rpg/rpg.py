@@ -44,6 +44,7 @@ class RPG:
     def get_weapon_info(self, userobj, weaponname) :
         if not self.__check_weapon(weaponname) :
             return u"해당 무기는 없습니다."
+
         (name, level, power) = self.__get_weapon_info(weaponname)
         return u"무기명: %s[lv.%d] / 파워 : %d" % (name, level, power)
 
